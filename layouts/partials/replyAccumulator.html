@@ -1,0 +1,8 @@
+{{ $result := slice .Path}}
+{{ $replyTo := .Param "replyTo"}}
+{{if $replyTo}}
+    {{ with .GetPage $replyTo }}
+        {{ $result = (partial "replyAccumulator.html" . ) | append $result }}
+    {{end}}
+{{ end }}
+{{ return $result }}

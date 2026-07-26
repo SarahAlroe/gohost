@@ -1,0 +1,39 @@
+{{ $replyList := (partial "replyAccumulator.html" . ) }}
+<article>
+    <header>
+        {{ with .GetPage .Section }}
+            <a class="postUserTitle" href="{{ .RelPermalink }}">{{.Title}}</a>
+            {{if .Param "at"}}
+                <a class="postUserAt" href="{{ .RelPermalink }}">@{{.Param "at"}}</a>
+            {{end}}
+        {{end}}
+        {{if .Date}}
+            <span class="postTime">
+                {{ $t := time.AsTime .Date }}
+                {{ time.Format "2 Jan 2006" $t }}
+            </span>
+        {{end}}
+        {{if not (compare.Eq .Path (collections.Index $replyList 0)) }}
+            {{ (resources.Get "icons/retweet-solid.svg" | minify).Content | safeHTML }}
+            {{$originalPost := .GetPage (collections.Index $replyList 0)}}
+            {{$originalPoster := .GetPage $originalPost.Section }}
+            {{ with $originalPoster }}
+            <a class="postUserTitle" href="{{ .RelPermalink }}">{{.Title}}</a>
+            {{if .Param "at"}}
+                <a class="postUserAt" href="{{ .RelPermalink }}">@{{.Param "at"}}</a>
+            {{end}}
+        {{end}}
+        {{end}}
+    </header>
+{{if compare.Eq .Path (collections.Index $replyList 0) }}
+    <hr>
+    {{partial "headlessPostFragment.html" .}}
+{{else}}
+    {{partial "postRepliesFragment.html" . }}
+    {{partial "postFragment.html" .}}
+{{end}}
+<hr>
+<footer>
+    <a class="postUserTitle" href="{{ .RelPermalink }}">Comments</a> 
+</footer>
+</article>

@@ -1,0 +1,15 @@
+{{ define "main" }}
+  <div class="accentBar">
+    {{ .Content }}
+  </div>
+  <div class="contentBar">
+    {{ $renderedPages := slice}}
+    {{ range .Pages }}
+        {{ if not (.Path | in $renderedPages)}}
+        {{ $replyList := (partial "replyAccumulator.html" . ) }}
+        {{ $renderedPages = $renderedPages | append $replyList }}
+        {{partial "post.html" .}}
+        {{ end }}
+    {{end}}
+    </div>
+{{ end }}

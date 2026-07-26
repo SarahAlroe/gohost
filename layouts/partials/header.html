@@ -1,0 +1,7 @@
+<header>
+    <div>
+        <a href="{{ .Site.Home.RelPermalink }}">
+    {{ (resources.Get "logo.svg" | minify).Content | safeHTML }}
+    </a>
+</div>
+</header>

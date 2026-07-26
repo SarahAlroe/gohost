@@ -1,0 +1,9 @@
+baseURL = 'https://example.org/'
+languageCode = 'en-us'
+title = 'My New Hugo Site'
+
+[params.style]
+color = 'blue'
+
+[security.http]
+mediaTypes = ['^font/woff2$']

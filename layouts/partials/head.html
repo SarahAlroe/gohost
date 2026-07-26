@@ -1,0 +1,14 @@
+{{partial "googlefonts.html" "https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:ital,wght@0,400;0,700;1,400;1,700"}}
+
+{{ with resources.Get "/sass/main.scss" }}
+    {{ $opts := dict "transpiler" "libsass" "targetPath" "css/style.css" }}
+    {{ with . | toCSS $opts }}
+    {{ if hugo.IsDevelopment }}
+        <link rel="stylesheet" href="{{ .RelPermalink }}">
+    {{ else }}
+        {{ with . | minify | fingerprint }}
+        <link rel="stylesheet" href="{{ .RelPermalink }}" integrity="{{ .Data.Integrity }}" crossorigin="anonymous">
+        {{ end }}
+    {{ end }}
+    {{ end }}
+{{ end }}

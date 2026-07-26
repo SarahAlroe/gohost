@@ -1,0 +1,10 @@
+{{ $replyTo := .Param "replyTo"}}
+{{if $replyTo}}
+    {{ with .GetPage $replyTo }}
+        {{ $replyTo = .Param "replyTo"}}
+        {{if $replyTo}}
+            {{partial "postRepliesFragment.html" . }}
+        {{end}}
+        {{partial "postFragment.html" . }}
+    {{end}}
+{{ end }}

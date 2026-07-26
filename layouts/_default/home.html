@@ -1,0 +1,28 @@
+{{ define "main" }}
+  <div class="accentBar">
+    {{ range .Site.Sections }}
+      <h2><a href="{{ .RelPermalink }}">{{ .LinkTitle }}</a></h2>
+    {{ end }}
+    {{ .Content }}
+  </div>
+  <div class="contentBar">
+    {{ $renderedPages := slice}}
+    {{ range site.RegularPages }}
+        {{ if not (.Path | in $renderedPages)}}
+          {{ $replyList := (partial "replyAccumulator.html" . ) }}
+          {{ $renderedPages = $renderedPages | append $replyList }}
+          <div class="articleWrapper">
+          {{ with .GetPage .Section }}
+            {{ $pictureParams := dict
+              "section" .
+              "size" "200"
+            }}
+            {{partial "profilePicture.html" $pictureParams}}
+          {{end}}
+          {{partial "post.html" .}}
+        </div>
+        {{ end }}
+    {{end}}
+    </div>
+{{ end }}
+

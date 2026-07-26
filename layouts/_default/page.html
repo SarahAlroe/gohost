@@ -1,0 +1,10 @@
+{{ define "main" }}
+    <div class="accentBar">
+        {{ with .GetPage .Section }}
+            {{partial "profileSidebar.html" .}}
+        {{ end }}
+    </div>
+    <div class="contentBar">
+        {{partial "post.html" .}}
+    </div>
+{{ end }}

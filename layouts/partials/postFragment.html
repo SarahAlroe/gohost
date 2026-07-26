@@ -1,0 +1,24 @@
+<hr>
+<div class="postHeader">
+{{ with .GetPage .Section }}
+    {{ $pictureParams := dict
+        "section" .
+        "size" "32"
+    }}
+    {{partial "profilePicture.html" $pictureParams}}
+    <a class="postUserTitle" href="{{ .RelPermalink }}">{{.Title}}</a>
+    {{if .Param "at"}}
+        <a class="postUserAt" href="{{ .RelPermalink }}">@{{.Param "at"}}</a>
+    {{end}}
+{{end}}
+{{if .Date}}
+<span class="postTime">
+    {{ $t := time.AsTime .Date }}
+    {{ time.Format "2 Jan 2006" $t }}
+</span>
+{{end}}
+</div>
+{{if .LinkTitle }}
+<h2><a href="{{ .RelPermalink }}">{{ .LinkTitle }}</a></h2>
+{{end}}
+{{.Content}}

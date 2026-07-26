@@ -1,0 +1,22 @@
+<style>
+{{ $opts := dict
+    "headers" (dict "User-Agent" "Mozilla/5.0 (X11; Linux x86_64; rv:132.0) Gecko/20100101 Firefox/132.0")
+}}
+
+{{ with resources.GetRemote . $opts}}
+ 
+{{$matches := findRESubmatch `  font-family: '(.*)';\n  font-style: (.*);\n  font-weight: (\d*);\n  src: url\((.*)\) format\('(.*)'\);\n  unicode-range:(.*);\n` .Content}}
+    {{ range $matches }}
+        {{ with dict "fontfamily" (index . 1) "fontstyle" (index . 2) "fontweight" (index . 3) "url" (index . 4) "format" (index . 5) "unicoderange" (index . 6) }}
+        @font-face {
+            font-family: '{{.fontfamily}}';
+            font-style: {{.fontstyle}};
+            font-weight: {{.fontweight}};
+            src: url({{(resources.GetRemote .url).RelPermalink}}) format('{{.format}}');
+            unicode-range: {{.unicoderange}};
+            }
+            
+        {{end}}
+    {{ end }}
+{{end}}
+</style>

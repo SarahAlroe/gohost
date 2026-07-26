@@ -1,0 +1,6 @@
+<header>TAGS</header>
+<ul class="tags">
+    {{ range . }}
+    <li><a href="{{ .RelPermalink }}">{{ .LinkTitle }}</a></li>
+    {{ end }}
+</ul>

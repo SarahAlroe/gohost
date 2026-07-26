@@ -1,0 +1,5 @@
+{{ $result := slice }}
+{{ range .RegularPages}}
+    {{ $result = .GetTerms "tags" | append $result }}
+{{ end }}
+{{ return uniq $result }}

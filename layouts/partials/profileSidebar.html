@@ -1,0 +1,57 @@
+{{ $at := .Param "at"}}
+{{ $byLine := .Param "byLine"}}
+{{ $pronouns := .Param "pronouns"}}
+{{ $extLink := .Param "extLink"}}
+{{ $qna := .Param "qna"}}
+{{ $pictureParams := dict
+    "section" .
+    "size" "200"
+}}
+{{partial "profilePicture.html" $pictureParams}}
+
+{{with .Title}}
+<h1>
+    <a href="{{$.RelPermalink}}">
+    {{.}}
+    </a>
+</h1>
+{{end}}
+{{with $at}}
+    <h2>
+        <a href="{{$.RelPermalink}}">
+            @{{.}}
+        </a>
+    </h2>
+{{end}}
+{{with $byLine}}
+<h3>
+    {{.}}
+</h3>
+{{end}}
+{{if or $pronouns $extLink }}
+<ul class="details">
+    {{with $pronouns}}
+    <li>
+        {{ (resources.Get "icons/user-solid.svg" | minify).Content | safeHTML }}
+        {{$pronouns}}
+    </li>
+    {{end}}
+    {{with $extLink}}
+    <li>
+        {{ (resources.Get "icons/link-solid.svg" | minify).Content | safeHTML }}
+        <a href="{{.}}">{{.}}</a>
+    </li>
+    {{end}}
+</ul>
+{{end}}
+{{ .Content }}
+{{with $qna}}
+<hr>
+<ul class="qna">
+{{range $qna}}
+<li>
+{{.}}
+</li>
+{{end}}
+</ul>
+{{end}}

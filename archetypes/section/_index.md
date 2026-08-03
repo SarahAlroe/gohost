@@ -1,10 +1,10 @@
 ---
-title: "User Name"
+title:
 params:
     header: "header image"
     picture: "user.svg"
     picture_mask: "hex"
-    at: "username"
+    at: "{{ replace .File.ContentBaseName "-" " " }}"
     byline: "Byline"
     pronouns: "pro/nouns"
     extLink: "example.com"

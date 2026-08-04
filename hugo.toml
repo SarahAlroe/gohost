@@ -7,3 +7,8 @@ color = 'blue'
 
 [security.http]
 mediaTypes = ['^font/woff2$']
+
+[markup]
+  [markup.goldmark]
+    [markup.goldmark.parser]
+      wrapStandAloneImageWithinParagraph = false

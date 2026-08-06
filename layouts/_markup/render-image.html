@@ -1,24 +1,23 @@
-{{- $u := urls.Parse .Destination -}}
-{{- $src := $u.String -}}
-{{- if not $u.IsAbs -}}
-	{{- $path := strings.TrimPrefix "./" $u.Path -}}
-	{{- with or (.PageInner.Resources.Get $path) (resources.Get $path) -}}
-		{{- $src = .RelPermalink -}}
-		{{- with $u.RawQuery -}}
-			{{- $src = printf "%s?%s" $src . -}}
-		{{- end -}}
-		{{- with $u.Fragment -}}
-			{{- $src = printf "%s#%s" $src . -}}
-		{{- end -}}
-	{{- end -}}
-{{- end -}}
+{{ $image := .Page.Resources.GetMatch .Destination }}
+{{ $filters := slice
+  images.AutoOrient
+  (images.Process "fit 800x800 webp q60")
+}}
+{{ $largeFilters := slice
+  images.AutoOrient
+  (images.Process "fit 2000x2000")
+}}
+{{ $largeImage := $image.Filter $largeFilters }}
+{{ $image = $image.Filter $filters }}
+
 <figure>
-    <img src="{{ $src }}" alt="{{ .PlainText }}"
+	<a href="{{$largeImage.RelPermalink}}" target="_blank">
+    <img src="{{ $image.RelPermalink }}" alt="{{ .PlainText }}"
         {{- with .Title }} title="{{ . }}" {{- end -}}
         {{- range $k, $v := .Attributes -}}
             {{- if $v -}}
             {{- printf " %s=%q" $k ($v | transform.HTMLEscape) | safeHTMLAttr -}}
             {{- end -}}
         {{- end -}}>
+	</a>
 </figure>
-{{- /**/ -}}

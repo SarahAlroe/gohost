@@ -14,7 +14,7 @@
 {{if .Date}}
 <span class="postTime">
     {{ $t := time.AsTime .Date }}
-    {{ time.Format "2 Jan 2006" $t }}
+    {{ time.Format .Site.Params.style.timeFormat $t }}
 </span>
 {{end}}
 </div>

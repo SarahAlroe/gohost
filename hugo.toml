@@ -1,9 +1,29 @@
 baseURL = 'https://example.org/'
 languageCode = 'en-us'
 title = 'gohost'
+defaultContentLanguage = 'en'
 
-[params.style]
-color = 'blue'
+[params]
+  [params.style]
+    color_primary = '#83254f'
+    color_secondary = '#ffab5c'
+    color_fg = '#fff9f2'
+    color_fg_secondary = '#ded9d3'
+    color_fg_tertiary = '#827f7c'
+    color_bg = '#191919'
+    color_content = '#000000'
+    color_border = '#4a4847'
+    color_primary_light = '#d3749b'
+    color_secondary_light = '#ffd8a8'
+    timeFormat = "2 Jan 2006, at 15:04"
+  [params.features]
+    comments = true
+    header = true
+    tags = true
+  [params.strings]
+    comments = "Comments"
+    readMore = "Read More"
+    tags = "Tags"
 
 [security.http]
 mediaTypes = ['^font/woff2$']
@@ -12,3 +32,6 @@ mediaTypes = ['^font/woff2$']
   [markup.goldmark]
     [markup.goldmark.parser]
       wrapStandAloneImageWithinParagraph = false
+
+[imaging]
+  resampleFilter = 'lanczos'

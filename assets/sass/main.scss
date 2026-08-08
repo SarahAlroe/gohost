@@ -1,13 +1,16 @@
-$color_fg: #fff9f2;
-$color_fg_secondary: #ded9d3;
-$color_fg_tertiary: #827f7c;
-$color_bg: #191919;
-$color_content: #000;
-$color_border: #4a4847;
-$color_primary: #83254f;
-$color_primary_light: #d3749b;
-$color_secondary: #ffab5c;
-$color_secondary_light: #ffd8a8;
+@use 'sass:color';
+@use 'hugo:vars' as *;
+
+$color_fg: #fff9f2 !default;
+$color_fg_secondary: #ded9d3 !default;
+$color_fg_tertiary: #827f7c !default;
+$color_bg: #191919 !default;
+$color_content: #000000 !default;
+$color_border: #4a4847 !default;
+$color_primary: #83254f !default;
+$color_primary_light: #d3749b !default;
+$color_secondary: #ffab5c !default;
+$color_secondary_light: #ffd8a8 !default;
 
 body {
     background-color: $color_bg;

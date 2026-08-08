@@ -1,6 +1,13 @@
-<header>TAGS</header>
+<header>{{.Site.Params.strings.tags}}</header>
 <ul class="tags">
-    {{ range . }}
-    <li><a href="{{ .RelPermalink }}">{{ .LinkTitle }}</a></li>
+    {{ with .GetTerms "tags" }}
+        {{ range . }}
+        <li><a href="{{ .RelPermalink }}">{{ .LinkTitle }}</a></li>
+        {{ end }}
+    {{ else with (partial "tagAccumulator.html" . ) }}
+        {{ range . }}
+        <li><a href="{{ .RelPermalink }}">{{ .LinkTitle }}</a></li>
+        {{ end }}
     {{ end }}
+    
 </ul>

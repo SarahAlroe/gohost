@@ -2,15 +2,13 @@
     <div class="accentBar">
         {{partial "profileSidebar.html" .}}
     </div>
+    {{- if .Site.Params.features.tags -}}
     <div class="sideBar">
         <div class="rounded">
-            {{ with .GetTerms "tags" }}
-                {{ partial "tagCloud.html" .}}
-            {{ else with (partial "tagAccumulator.html" . ) }}
-                {{ partial "tagCloud.html" .}}
-            {{ end }}
+            {{partial "tagCloud.html" .}}
         </div>
     </div>
+    {{- end -}}
     <div class="contentBar">
     {{ $renderedPages := slice}}
     {{ range .Pages }}

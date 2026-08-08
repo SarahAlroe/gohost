@@ -10,7 +10,7 @@
         {{if .Date}}
             <span class="postTime">
                 {{ $t := time.AsTime .Date }}
-                {{ time.Format "2 Jan 2006" $t }}
+                {{ time.Format .Site.Params.style.timeFormat $t }}
             </span>
         {{end}}
         {{if not (compare.Eq .Path (collections.Index $replyList 0)) }}
@@ -33,7 +33,9 @@
     {{partial "postFragment.html" .}}
 {{end}}
 <hr>
-<footer>
-    <a class="postUserTitle" href="{{ .RelPermalink }}">Comments</a> 
-</footer>
+{{- if .Site.Params.features.comments -}}
+    <footer>
+        <a class="postUserTitle" href="{{ .RelPermalink }}">{{ .Site.Params.strings.comments }}</a> 
+    </footer>
+{{- end -}}
 </article>

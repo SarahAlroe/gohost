@@ -1,9 +1,9 @@
 <meta charset="utf-8">
 <title>{{ with .Page.Title }}{{.}} | {{end}}{{ .Site.Title }}</title>
 {{partial "googlefonts.html" "https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:ital,wght@0,400;0,700;1,400;1,700"}}
-
+{{- $vars:= .Site.Params.style -}}
+{{- $opts := dict "transpiler" "dartsass" "targetPath" "css/style.css" "vars" .Site.Params.style -}}
 {{- with resources.Get "/sass/main.scss" -}}
-    {{- $opts := dict "transpiler" "libsass" "targetPath" "css/style.css" -}}
     {{- with . | toCSS $opts -}}
         {{ if hugo.IsDevelopment }}
             <link rel="stylesheet" href="{{ .RelPermalink }}">

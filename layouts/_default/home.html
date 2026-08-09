@@ -1,9 +1,54 @@
 {{ define "main" }}
-  <div class="accentBar">
+  <div class="sectionListBar">
+    <div>
     {{ range .Site.Sections }}
-      <h2><a href="{{ .RelPermalink }}">{{ .LinkTitle }}</a></h2>
+    <div class="sectionListItem">
+      {{ $pictureParams := dict
+        "section" .
+        "size" "100"
+      }}
+      {{partial "profilePicture.html" $pictureParams}}
+      <div>
+      {{if .Title}}
+        <h1>
+            <a href="{{.RelPermalink}}">
+            {{.Title}}
+            </a>
+        </h1>
+      {{end}}
+      {{if .Param "at"}}
+        <h2>
+            <a href="{{.RelPermalink}}">
+                @{{.Param "at"}}
+            </a>
+        </h2>
+      {{end}}
+      {{with (.Pages.ByDate.Reverse | collections.First 1) }}
+       {{range .}}
+       <span class="highlight">
+       {{ .Date.Format .Site.Params.style.shortTimeFormat }}:
+       </span>
+       {{if .Title}}
+        {{.Title}}
+      {{else}}
+        {{.Content | transform.Plainify | strings.Truncate 20 }}
+      {{end}}
+      {{end}}
+      {{ end }}
+      </div>
+    </div>
     {{ end }}
-    {{ .Content }}
+    </div>
+  </div>
+  <div class="sideBar">
+    <div class="gohostCorner">
+      {{with .Title}}
+        <h1>
+            {{.}}
+        </h1>
+      {{end}}
+      {{ .Content }}
+    </div>
   </div>
   <div class="contentBar">
     {{ $renderedPages := slice}}
@@ -15,7 +60,7 @@
           {{ with .GetPage .Section }}
             {{ $pictureParams := dict
               "section" .
-              "size" "200"
+              "size" "100"
             }}
             {{partial "profilePicture.html" $pictureParams}}
           {{end}}

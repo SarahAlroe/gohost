@@ -20,10 +20,6 @@ defaultContentLanguage = 'en'
     comments = true
     header = true
     tags = true
-  [params.strings]
-    comments = "Comments"
-    readMore = "Read More"
-    tags = "Tags"
 
 [security.http]
 mediaTypes = ['^font/woff2$']

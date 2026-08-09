@@ -1,4 +1,4 @@
-<header>{{.Site.Params.strings.tags}}</header>
+<header>{{T "tags"}}</header>
 <ul class="tags">
     {{ with .GetTerms "tags" }}
         {{ range . }}
@@ -9,5 +9,4 @@
         <li><a href="{{ .RelPermalink }}">{{ .LinkTitle }}</a></li>
         {{ end }}
     {{ end }}
-    
 </ul>

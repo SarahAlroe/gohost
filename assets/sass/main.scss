@@ -281,7 +281,7 @@ main {
             margin-right: 0;
         }
     img{
-        max-width: 100%;
+        width: 100%;
     }
 
     .contentBar{
@@ -402,6 +402,19 @@ main {
                 a{
                     color: $color_fg_secondary;
                     text-decoration: none;
+                }
+                a:hover{
+                    text-decoration: underline;
+                }
+            }
+            .postTags{
+                padding-left: 0.75rem;
+                padding-right: 0.75rem;
+                padding-bottom: 0.75rem;
+                a{
+                    color: $color_fg_tertiary;
+                    text-decoration: none;
+                    font-size:smaller;
                 }
                 a:hover{
                     text-decoration: underline;

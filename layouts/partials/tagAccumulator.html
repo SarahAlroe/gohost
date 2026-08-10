@@ -1,5 +1,11 @@
 {{ $result := slice }}
+{{ $tagNames := slice}}
 {{ range .RegularPages}}
-    {{ $result = .GetTerms "tags" | append $result }}
+    {{range .GetTerms "tags"}}
+        {{if not (in $tagNames .LinkTitle)}}
+            {{ $result =  $result | append . }}
+            {{ $tagNames = $tagNames | append .LinkTitle }}
+        {{end}}
+    {{end}}
 {{ end }}
-{{ return uniq $result }}
+{{ return $result }}

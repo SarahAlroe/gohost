@@ -2,3 +2,10 @@
 <h2><a href="{{ .RelPermalink }}">{{ .LinkTitle }}</a></h2>
 {{end}}
 {{.Content}}
+{{- if .Site.Params.features.tags -}}
+<div class="postTags">
+    {{range .GetTerms "tags"}}
+    <a href="{{ .RelPermalink }}">#{{ .LinkTitle }}</a>
+    {{end}}
+</div>
+{{- end -}}

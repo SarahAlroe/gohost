@@ -1,14 +1,22 @@
-{{ $image := .Page.Resources.GetMatch .Destination }}
-{{ $filters := slice
+{{ $sourceImage := .Page.Resources.GetMatch .Destination }}
+{{ $filtersLossy := slice
   images.AutoOrient
-  (images.Process "fit 800x800 webp q60")
+  (images.Process "fit 800x800 webp q70")
+}}
+{{ $filtersPng := slice
+  images.AutoOrient
+  (images.Process "fit 800x800 png")
 }}
 {{ $largeFilters := slice
   images.AutoOrient
   (images.Process "fit 2000x2000")
 }}
-{{ $largeImage := $image.Filter $largeFilters }}
-{{ $image = $image.Filter $filters }}
+{{ $largeImage := $sourceImage.Filter $largeFilters }}
+{{ $image := $sourceImage.Filter $filtersLossy }}
+{{ $pngImage := $sourceImage.Filter $filtersPng}}
+{{ if and (compare.Le ($pngImage.Content | len) (math.Mul ($image.Content | len) 5)) (in ".png" (path.Ext $sourceImage)) }}
+  {{$image = $pngImage}}
+{{ end }}
 
 <figure>
 	<a href="{{$largeImage.RelPermalink}}" target="_blank">

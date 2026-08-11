@@ -5,7 +5,7 @@
     <div class="sectionListItem">
       {{ $pictureParams := dict
         "section" .
-        "size" "100"
+        "size" "64"
       }}
       {{partial "profilePicture.html" $pictureParams}}
       <div>
@@ -60,7 +60,7 @@
           {{ with .GetPage .Section }}
             {{ $pictureParams := dict
               "section" .
-              "size" "100"
+              "size" "64"
             }}
             {{partial "profilePicture.html" $pictureParams}}
           {{end}}

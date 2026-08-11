@@ -1,16 +1,19 @@
 {{ $image := .section.Resources.Get (.section.Param "picture") }}
 {{if $image}}
-    {{ $fillOptions := printf "%sx%s Center lossy q70" .size .size }}
-    {{ $image = $image.Fill $fillOptions }}
+    {{ $fillOptions := printf "fill %sx%s Center lossy q60 avif icon" .size .size }}
+    {{- if in ".gif" (path.Ext $image) -}}
+        {{ $fillOptions = printf "fill %sx%s Center lossy q60" .size .size }}
+    {{- end -}}
+    {{ $image = $image.Process $fillOptions }}
     {{ $maskUrl := .section.Param "picture_mask"}}
     {{ if not $maskUrl}}
         {{$maskUrl = "hex"}}
     {{ end }}
     {{ $maskUrl = printf "%s%s%s" "masks/" $maskUrl ".svg" }}
-    {{ $mask := (resources.Get $maskUrl | minify).Content | encoding.Base64Encode}}
+    {{ $mask := (resources.Get $maskUrl | minify)}}
     <div class="profilePicture">
         <a href="{{.section.RelPermalink}}">
-        <img src="{{ $image.RelPermalink }}" style="mask-image: url(data:image/svg+xml;base64,{{$mask}}); mask-size: contain;" alt="{{.Title}}">
+        <img src="{{ $image.RelPermalink }}" style="mask-image: url({{$mask.RelPermalink}}); mask-size: contain;" alt="{{.Title}}">
         </a>
     </div>
 {{end}}

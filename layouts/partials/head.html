@@ -14,3 +14,5 @@
         {{ end }}
     {{- end -}}
 {{- end -}}
+{{ $relativeTime := resources.Get "js/relativeTime.js" | minify }}
+<script defer language="javascript" type="text/javascript" src="{{$relativeTime.RelPermalink}}"></script>

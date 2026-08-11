@@ -160,8 +160,23 @@ main {
                     img{
                             width: 100%;
                         }
-                }
             }
+            >a{
+                margin-top: -1.75rem;
+                text-align: end;
+                >svg{
+                    fill: $color_secondary;
+                    height: 1rem;
+                }
+                color: $color_fg;
+                text-decoration: none;
+            }
+            a:hover{
+                text-decoration: underline;
+            }
+            
+        }
+        
     }
 
     .gohostCorner {

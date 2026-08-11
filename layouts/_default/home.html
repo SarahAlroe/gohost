@@ -38,7 +38,13 @@
       </div>
     </div>
     {{ end }}
+    {{ with .OutputFormats.Get "rss" }}
+      <a href="{{.Permalink}}">
+        {{ (resources.Get "icons/rss-solid-full.svg" | minify).Content | safeHTML }}
+      </a>
+    {{end}}
     </div>
+
   </div>
   <div class="gohostCorner">
     <div>

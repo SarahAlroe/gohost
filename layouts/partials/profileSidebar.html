@@ -42,6 +42,13 @@
         <a href="{{.}}">{{.}}</a>
     </li>
     {{end}}
+    {{ with .OutputFormats.Get "rss" }}
+    <li>
+      <a href="{{.Permalink}}">
+        {{ (resources.Get "icons/rss-solid-full.svg" | minify).Content | safeHTML }}
+      </a>
+    </li>
+    {{end}}
 </ul>
 {{end}}
 {{ .Content }}

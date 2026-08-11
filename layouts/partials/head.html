@@ -16,3 +16,6 @@
 {{- end -}}
 {{ $relativeTime := resources.Get "js/relativeTime.js" | minify }}
 <script defer language="javascript" type="text/javascript" src="{{$relativeTime.RelPermalink}}"></script>
+{{ with .OutputFormats.Get "rss" }}
+  {{ printf `<link rel=%q type=%q href=%q title=%q>` .Rel .MediaType.Type .Permalink site.Title | safeHTML }}
+{{ end }}

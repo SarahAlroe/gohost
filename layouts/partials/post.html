@@ -32,8 +32,8 @@
     {{partial "postRepliesFragment.html" . }}
     {{partial "postFragment.html" .}}
 {{end}}
-<hr>
 {{- if .Site.Params.features.comments -}}
+    <hr>
     <footer>
         <a class="postUserTitle" href="{{ .RelPermalink }}">{{ T "comments" }}</a> 
     </footer>

@@ -110,6 +110,13 @@ main {
     }
     width: 100%;
 
+    a{
+        color:$color_secondary;
+    }
+    a:visited{
+        color:$color_secondary_light;
+    }
+
     .grid {
         gap: 1.5rem;
         flex-grow: 1;
@@ -293,7 +300,7 @@ main {
         margin-left: 0;
         margin-right: 0;
         }
-    img{
+    img,video{
         max-width: 100%;
     }
 
@@ -384,7 +391,6 @@ main {
                 }
             }
             details.readmore {
-                
                 summary{
                     padding: 0.75rem;
                     cursor: pointer;
@@ -394,6 +400,11 @@ main {
             p{
                 padding-left: 0.75rem;
                 padding-right: 0.75rem;
+            }
+            >video{
+                padding-left: 0.75rem;
+                padding-right: 0.75rem;
+                max-width: calc(100% - 2*0.75rem);
             }
             h1,h2,h3,h4{
                 padding-left: 0.75rem;

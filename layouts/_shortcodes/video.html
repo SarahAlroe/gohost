@@ -1,0 +1,8 @@
+{{ with .Page.Resources.Get (.Get "src") }}
+  <video controls preload="auto" src="{{ .RelPermalink }}">
+    <p>
+        {{ $.Inner }}
+    </p>
+    <a href="{{ .RelPermalink }}" download="{{ .RelPermalink }}">Download</a>
+  </video>
+{{ end }}

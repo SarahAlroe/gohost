@@ -58,7 +58,7 @@
   </div>
   <div class="contentBar">
     {{ $renderedPages := slice}}
-    {{ range site.RegularPages }}
+    {{ range (.Paginate site.RegularPages).Pages }}
         {{ if not (.Path | in $renderedPages)}}
           {{ $replyList := (partial "replyAccumulator.html" . ) }}
           {{ $renderedPages = $renderedPages | append $replyList }}
@@ -74,6 +74,7 @@
         </div>
         {{ end }}
     {{end}}
+    {{ partial "pagination.html" . }}
     </div>
 {{ end }}
 

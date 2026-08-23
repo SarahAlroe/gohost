@@ -165,6 +165,8 @@ main {
                     height: 4rem;
                     margin-right: .5rem;
                     img{
+                        mask-position: center;
+                        mask-repeat: no-repeat;
                             width: 100%;
                         }
             }
@@ -249,6 +251,8 @@ main {
             }
             img {
                 width: 100%;
+                mask-position: center;
+                mask-repeat: no-repeat;
             }
         }
         ul.details{
@@ -326,8 +330,10 @@ main {
                 height: 4rem;
                 margin-right: .5rem;
                 img{
-                        width: 100%;
-                    }
+                    width: 100%;
+                    mask-position: center;
+                    mask-repeat: no-repeat;
+                }
             }
             article{
                 flex-grow: 1;
@@ -368,6 +374,8 @@ main {
                     height: 2rem;
                     width: 2rem;
                     img{
+                        mask-position: center;
+                        mask-repeat: no-repeat;
                         width: 100%;
                     }
                 }
@@ -444,6 +452,22 @@ main {
                     text-decoration: underline;
                 }
             }
+        }
+       .page-link{
+        svg{
+            height: 2rem;
+            width: 2rem;
+            path{
+                fill:$color_secondary !important;
+            }
+        }
+       }
+       .page-link.prev>svg{
+        transform: scale(-1,1);
+        float: inline-start;
+       }
+       .page-link.next>svg{
+            float: inline-end;
         }
     }
 

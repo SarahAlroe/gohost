@@ -4,12 +4,13 @@
   </div>
   <div class="contentBar">
     {{ $renderedPages := slice}}
-    {{ range .Pages }}
+    {{ range (.Paginate .Pages).Pages }}
         {{ if not (.Path | in $renderedPages)}}
         {{ $replyList := (partial "replyAccumulator.html" . ) }}
         {{ $renderedPages = $renderedPages | append $replyList }}
         {{partial "post.html" .}}
         {{ end }}
     {{end}}
+    {{ partial "pagination.html" . }}
     </div>
 {{ end }}

@@ -1,0 +1,23 @@
+{{- $msg1 := "When passing a map to the internal pagination template, one of the elements must be named 'page', and it must be set to the context of the current page." }}
+{{- $page := . }}
+{{- $arrow := resources.Get "icons/page-right.svg" | minify}}
+
+{{- if reflect.IsMap . }}
+	{{- with .page }}
+		{{- $page = . }}
+	{{- else }}
+		{{- errorf $msg1 }}
+	{{- end }}
+{{- end }}
+{{- with .Paginator }}
+
+<div class="paginator">
+	{{- with .Prev }}
+        <a href="{{ .URL }}" aria-label="Previous" class="page-link prev" role="button">{{$arrow.Content | safeHTML}}</a>
+	{{- end }}
+
+	{{- with .Next }}
+        <a href="{{ .URL }}" aria-label="Next" class="page-link next" role="button">{{$arrow.Content | safeHTML}}</a>
+	{{- end }}
+</div>
+{{- end }}

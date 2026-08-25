@@ -1,0 +1,28 @@
+
+
+{{ $url := .Get 0 }}
+
+{{ with try (resources.GetRemote $url) }}
+  {{ with .Err }}
+    {{ errorf "%s" . }}
+  {{ else with .Value }}
+    {{ $data := .Content }}
+
+    {{ $embedURLMatch := strings.FindRESubmatch `(?sU)<meta\s+property="og:video"\s+content="(.+)">` $data}}
+    {{ $embedURL := index (index $embedURLMatch 0) 1 }} 
+    {{ $embedURL = printf "%sbgcol=%s/linkcol=%s/transparent=true/" $embedURL (trim $.Site.Params.style.color_bg "#") (trim $.Site.Params.style.color_secondary "#") }}
+
+    {{ $descriptionMatch := strings.FindRESubmatch `(?sU)<meta\s+name="description"\s+content="(.+)">` $data }}
+    {{ $description := index (index $descriptionMatch 0) 1}}
+
+    <iframe style="border: 0; width: 100%; height: 120px;" 
+            src="{{ $embedURL | safeURL}}" seamless>
+    <a href="{{$url | safeURL}}">
+    {{$description}}</a>
+</iframe>
+
+  {{ else }}
+    {{ errorf "Unable to get remote resource %q" $url }}
+  {{ end }}
+{{ end }}
+

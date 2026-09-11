@@ -1,3 +1,6 @@
 comments = "Comments"
 readMore = "Read More"
 tags = "Tags"
+contentWarning = "Content warnings for:"
+cwShow = "Show post"
+cwHide = "Hide post"

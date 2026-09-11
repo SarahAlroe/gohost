@@ -398,6 +398,60 @@ main {
                     color: $color_fg_tertiary;
                 }
             }
+            .contentWarning{
+                >div{
+                    @extend .rounded;
+                    @extend .borders;
+                    margin-left: 0.75rem;
+                    margin-right: 0.75rem;
+                    margin-bottom: 0.75rem;
+                    border-color: $color_primary_light;
+                    background-color: $color_bg;
+                    padding: 0.75rem;
+                    display: flex;
+                    flex-direction: row;
+                    align-items: center;
+                    color: $color_primary_light;
+                    >svg{
+                        height: 2rem;
+                        width: 2rem;
+                        path{
+                            fill:$color_primary !important;
+                        }
+                    }
+                    >div{
+                        flex-grow: 1;
+                    }
+                }
+                >details>summary{
+                    display: flex;
+                    align-items: center;
+                    flex-direction: column;
+                    >div{
+                        @extend .rounded;
+                        background-color: $color_secondary;
+                        padding: 0.75rem;
+                        cursor: pointer;
+                        color: $color_content;
+                        display: inline-block;
+                    }
+                    >div:last-child{
+                        display: none;
+                    }
+                }
+                >details[open]>summary{
+                    >div:first-child{
+                        display: none;
+                    }
+                    >div:last-child{
+                        display: inline-block;
+                    }
+                }
+            }
+            audio{
+                width: 100%;
+                filter: sepia(100%) saturate(200%) hue-rotate(-60deg);
+            }
             details.readmore {
                 summary{
                     padding: 0.75rem;
@@ -533,4 +587,7 @@ main {
 }
 .highlight {
     color: $color_secondary;
+}
+.bold {
+    font-weight: bold;
 }

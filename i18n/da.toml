@@ -1,3 +1,6 @@
 comments = "Kommentarer"
 readMore = "Læs mere"
 tags = "Tags"
+contentWarning = "Advarsel, dette opslag indeholder:"
+cwShow = "Vis opslag"
+cwHide = "Skjul opslag"

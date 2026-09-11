@@ -1,0 +1,31 @@
+{{- /*
+Renders an HTML details element styled as a content warning.
+
+@reference https://developer.mozilla.org/en-US/docs/Web/HTML/Element/details
+
+@examples
+
+
+  {{< cw "Example content description" >}}
+  Showing an example content warning.
+  {{< /cw >}}
+
+*/}}
+
+{{- /* Get arguments. */}}
+{{- $class := "contentWarning" }}
+{{- $summary := (.Get 0) }}
+
+{{- /* Render. */}}
+<span class="contentWarning">
+    <div>
+    {{ (resources.Get "icons/triangle-exclamation-solid-full.svg" | minify).Content | safeHTML }}
+    <div>
+        {{(T "contentWarning")}} <span class="bold">{{ $summary | .Page.RenderString }}</span>
+    </div>
+    </div>
+    <details>
+	<summary><div>{{T "cwShow"}}</div><div>{{T "cwHide"}}</div></summary>
+	{{ .Inner | .Page.RenderString (dict "display" "block") -}}
+</details>
+</span>

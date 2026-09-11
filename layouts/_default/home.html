@@ -29,7 +29,7 @@
        {{ .Date.Format .Site.Params.style.shortTimeFormat }}: 
        </span>
        {{if .Title}}
-        {{.Title}}
+        {{.Title | transform.Plainify | strings.Truncate 23 }}
       {{else}}
         {{.Content | transform.Plainify | strings.Truncate 23 }}
       {{end}}

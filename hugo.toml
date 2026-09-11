@@ -29,6 +29,8 @@ mediaTypes = ['^font/woff2$']
   [markup.goldmark]
     [markup.goldmark.parser]
       wrapStandAloneImageWithinParagraph = false
+    [markup.goldmark.renderer]
+      unsafe = true
 
 [imaging]
   resampleFilter = 'lanczos'

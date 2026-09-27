@@ -22,8 +22,11 @@ defaultContentLanguage = 'en'
     header = true
     tags = true
 
-[security.http]
-mediaTypes = ['^font/woff2$']
+[security]
+  [security.http]
+    mediaTypes = ['^font/woff2$']
+  [security.funcs]
+    getenv = ['^HUGO_', 'PWD']
 
 [markup]
   [markup.goldmark]

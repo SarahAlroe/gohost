@@ -303,9 +303,16 @@ main {
         margin-bottom: 0;
         margin-left: 0;
         margin-right: 0;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
         }
     img,video{
         max-width: 100%;
+    }
+    div.highlight{
+        padding-left: 0.75rem;
+        padding-right: 0.75rem;
     }
 
     .contentBar{
@@ -346,6 +353,11 @@ main {
             box-sizing: border-box;
             @extend .rounded;
             @extend .borders;
+
+            .editPage{
+                text-align: right;
+                margin-top: -2rem;
+            }
             hr{
                 margin:0;
                 border: 0;

@@ -1,6 +1,7 @@
 {{ define "main" }}
     <div class="accentBar">
         {{partial "profileSidebar.html" .}}
+        {{partial "editPage.html" .}}
     </div>
     {{- if .Site.Params.features.tags -}}
     <div class="sideBar">

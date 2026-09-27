@@ -2,6 +2,7 @@
     <div class="accentBar">
         {{ with .GetPage .Section }}
             {{partial "profileSidebar.html" .}}
+            {{partial "editPage.html" .}}
         {{ end }}
     </div>
     <div class="contentBar">

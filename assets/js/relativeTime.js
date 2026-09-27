@@ -29,6 +29,6 @@ document.querySelectorAll(".relativeTime").forEach((e) => {
     const elapsedSeconds = postTimestamp - nowSeconds;
     const relativeTimeString = getRelativeTimeString(elapsedSeconds);
     if (relativeTimeString != ""){
-        e.textContent = relativeTimeString+":";
+        e.textContent = relativeTimeString+": ";
     }
 })

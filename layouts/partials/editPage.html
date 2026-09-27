@@ -1,0 +1,11 @@
+{{ if eq hugo.Environment "development" }}
+{{ if .File}}
+  {{ $projectPath := or (os.Getenv "HUGO_PROJECT_PATH" ) (os.Getenv "PWD") }}
+  <p class="editPage">
+  <a 
+    href="vscode://file/{{ $projectPath }}/content/{{ .File.Path }}"
+    class="button"
+  >
+    Edit Page
+  </a></p>
+{{ end }}{{ end }}

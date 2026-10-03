@@ -21,6 +21,16 @@ defaultContentLanguage = 'en'
     comments = true
     header = true
     tags = true
+  [params.shortcodes.soundcloud]
+    autoplay = false
+    showComments = false
+    hideRelated = true
+    showUser = true
+    showReposts = false
+    showTeaser = false
+    backgroundVisual = false
+    showArtwork = true
+    showPlainLink = true
 
 [security]
   [security.http]

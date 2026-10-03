@@ -1,0 +1,121 @@
+
+
+{{ $url := or (.Get "url") (.Get 0) }}
+
+{{- /* Default parameters. */}}
+{{ $paramPlayerColor := or (trim $.Site.Params.style.color_primary "#") ("ff5500") }}
+{{ $paramAutoPlay := or ($.Site.Params.shortcodes.soundcloud.autoplay) (false) }}
+{{ $paramShowComments := or ($.Site.Params.shortcodes.soundcloud.showComments) (false) }}
+{{ $paramHideRelated := or ($.Site.Params.shortcodes.soundcloud.hideRelated) (true) }}
+{{ $paramShowUser := or ($.Site.Params.shortcodes.soundcloud.showUser) (true) }}
+{{ $paramShowReposts := or ($.Site.Params.shortcodes.soundcloud.showReposts) (false)}}
+{{ $paramShowTeaser := or ($.Site.Params.shortcodes.soundcloud.showTeaser) (false)}}
+{{ $paramVisual := or ($.Site.Params.shortcodes.soundcloud.backgroundVisual) (false)}}
+{{ $paramShowArtwork := or ($.Site.Params.shortcodes.soundcloud.showArtwork) (true)}}
+{{ $showPlainLink := or ($.Site.Params.shortcodes.soundcloud.showPlainLink) (true) }}
+
+{{- /* Parameter arguments */}}
+{{- with (.Get "color") }}
+  {{$paramPlayerColor = (trim . "#")}}
+{{- end }}
+
+{{- if in (slice "true" true 1) ($.Get "autoplay") }}
+  {{- $paramAutoPlay = true }}
+{{- else if in (slice "false" false 0) ($.Get "autoplay") }}
+  {{- $paramAutoPlay = false }}
+{{- end }}
+
+{{- if in (slice "true" true 1) ($.Get "showComments") }}
+  {{- $paramShowComments = true }}
+{{- else if in (slice "false" false 0) ($.Get "showComments") }}
+  {{- $paramShowComments = false }}
+{{- end }}
+
+{{- if in (slice "true" true 1) ($.Get "hideRelated") }}
+  {{- $paramHideRelated = true }}
+{{- else if in (slice "false" false 0) ($.Get "hideRelated") }}
+  {{- $paramHideRelated = false }}
+{{- end }}
+
+{{- if in (slice "true" true 1) ($.Get "showUser") }}
+  {{- $paramShowUser = true }}
+{{- else if in (slice "false" false 0) ($.Get "showUser") }}
+  {{- $paramShowUser = false }}
+{{- end }}
+
+{{- if in (slice "true" true 1) ($.Get "showReposts") }}
+  {{- $paramShowReposts = true }}
+{{- else if in (slice "false" false 0) ($.Get "showReposts") }}
+  {{- $paramShowReposts = false }}
+{{- end }}
+
+{{- if in (slice "true" true 1) ($.Get "showTeaser") }}
+  {{- $paramShowTeaser = true }}
+{{- else if in (slice "false" false 0) ($.Get "showTeaser") }}
+  {{- $paramShowTeaser = false }}
+{{- end }}
+
+{{- if in (slice "true" true 1) ($.Get "visual") }}
+  {{- $paramVisual = true }}
+{{- else if in (slice "false" false 0) ($.Get "visual") }}
+  {{- $paramVisual = false }}
+{{- end }}
+
+{{- if in (slice "true" true 1) ($.Get "showArtwork") }}
+  {{- $paramShowArtwork = true }}
+{{- else if in (slice "false" false 0) ($.Get "showArtwork") }}
+  {{- $paramShowArtwork = false }}
+{{- end }}
+
+{{- if in (slice "true" true 1) ($.Get "showPlainLink") }}
+  {{- $showPlainLink = true }}
+{{- else if in (slice "false" false 0) ($.Get "showPlainLink") }}
+  {{- $showPlainLink = false }}
+{{- end }}
+
+{{ with try (resources.GetRemote $url) }}
+  {{ with .Err }}
+    {{ errorf "%s" . }}
+  {{ else with .Value }}
+    {{ $data := .Content }}
+
+    {{ $embedURLMatch := strings.FindRESubmatch `(?sU)<meta\s+property="twitter:player"\s+content="(.+)(&.+)">` $data}}
+    {{ $embedURL := index (index $embedURLMatch 0) 1 }}
+    {{ $embedURL = printf "%s&color=%%23%s&auto_play=%t&hide_related=%t&show_comments=%t&show_user=%t&show_reposts=%t&show_teaser=%t&visual=%t&show_artwork=%t" $embedURL $paramPlayerColor $paramAutoPlay $paramHideRelated $paramShowComments $paramShowUser $paramShowReposts $paramShowTeaser $paramVisual $paramShowArtwork}}
+
+    {{ $trackTitleMatch := strings.FindRESubmatch `(?sU)<meta\s+property="twitter:title"\s+content="(.+)">` $data}}
+    {{ $trackTitle := index (index $trackTitleMatch 0) 1 }}
+
+    {{ $artistURLMatch := strings.FindRESubmatch `(?sU)<link\s+rel="author"\s+href="(.+)">` $data}}
+    {{ $artistURL := index (index $artistURLMatch 0) 1 }}
+
+    {{ $artistNameMatch := strings.FindRESubmatch `(?sU)<title>.+ by (.+) \| Listen online for free on SoundCloud<\/title>` $data}}
+    {{ $artistName := index (index $artistNameMatch 0) 1 }}
+
+    {{ $descriptionMatch := strings.FindRESubmatch `(?sU)<meta\s+name="description"\s+content="(.+)">` $data }}
+    {{ $description := index (index $descriptionMatch 0) 1}}
+
+    <iframe width="100%" height="166" scrolling="no" frameborder="no" 
+            allow="autoplay; encrypted-media" 
+            src="{{ $embedURL | safeURL}}">
+    </iframe>
+    {{if $showPlainLink}}
+    <div style="font-size: 10px; line-break: anywhere;
+          word-break: normal;overflow: hidden;white-space: nowrap; text-overflow: ellipsis; 
+          font-weight: 100;">
+          <a href="https://soundcloud.com{{$artistURL}}" 
+              title="{{$artistName}}" 
+              target="_blank" style=" 
+              text-decoration: none;">
+              {{$artistName}}
+          </a> · <a href="{{$url | safeURL}}" 
+                    title="{{ $trackTitle }}" target="_blank" 
+                    style=" text-decoration: none;">
+                    {{ $trackTitle }}
+          </a>
+    </div>
+    {{end}}
+  {{ else }}
+    {{ errorf "Unable to get remote resource %q" $url }}
+  {{ end }}
+{{ end }}

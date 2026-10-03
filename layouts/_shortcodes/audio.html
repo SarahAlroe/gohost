@@ -1,3 +1,5 @@
-{{ with .Page.Resources.Get (.Get "src") }}
-  <audio controls preload="auto" src="{{ .RelPermalink }}"></audio>
+{{ $src := or (.Get "src") (.Get 0) }}
+
+{{ with .Page.Resources.Get $src }}
+  <audio controls preload="metadata" src="{{ .RelPermalink }}"></audio>
 {{ end }}

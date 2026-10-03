@@ -1,4 +1,6 @@
-{{ with .Page.Resources.Get (.Get "src") }}
+{{ $src := or (.Get "src") (.Get 0) }}
+
+{{ with .Page.Resources.Get $src }}
   <video controls preload="auto" src="{{ .RelPermalink }}">
     <p>
         {{ $.Inner }}

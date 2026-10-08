@@ -1,11 +1,14 @@
 {{ $tag := .Get 0 }}
-{{if $tag}}
-<a href="/tags/{{$tag}}/" class="tag">#{{$tag}}</a>
+{{ $tagPath := ""}}
+
+{{ range .Site.Taxonomies.tags }}
+    {{if eq $tag .Page.Title }}
+        {{$tagPath = .Page.Permalink}}
+    {{end}}
+{{ end }}
+
+{{if $tagPath}}
+    <a href="{{ $tagPath }}" class="tag">#{{$tag}}</a>
+{{else}}
+    {{warnf "The tag \"%s\" does not appear to exist. Skipping." $tag}}
 {{end}}
-<!--
-<ul>
-  {{ range .Site.Taxonomies.tags }}
-    <li><a href="{{ .Page.Permalink }}">{{ .Page.Title }}</a> {{ .Count }}</li>
-  {{ end }}
-</ul>
--->

@@ -1,4 +1,10 @@
 {{ $at := .Get 0 }}
 {{if $at}}
-<a href="/{{$at}}/" class="at">@{{$at}}</a>
+    {{if .Site.GetPage $at}}
+        <a href="/{{$at}}/" class="at">@{{$at}}</a>
+    {{else}}
+        {{warnf "The section  \"@%s\" does not appear to exist. Skipping." $at}}
+    {{end}}
+{{else}}
+    {{warnf "No @/at parameter provided. Skipping."}}
 {{end}}

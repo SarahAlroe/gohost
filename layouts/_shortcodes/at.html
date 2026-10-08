@@ -1,0 +1,4 @@
+{{ $at := .Get 0 }}
+{{if $at}}
+<a href="/{{$at}}/" class="at">@{{$at}}</a>
+{{end}}

@@ -578,7 +578,7 @@ main {
                 a{
                     display: inline-block;
                     text-decoration: none;
-                    padding: 0.25rem 0.5rem;
+                    padding: 0.125rem 0.5rem;
                     color: $color_fg;
                 }
             }
@@ -602,4 +602,25 @@ main {
 }
 .bold {
     font-weight: bold;
+}
+.at{
+    @extend .bold;
+    text-decoration: none;
+}
+.at:hover{
+    text-decoration: underline;
+}
+.tag{
+    background-color: $color_primary;
+    border-radius: 1rem;
+    display: inline-block;
+    text-decoration: none;
+    padding: 0rem 0.5rem;
+    margin-top: 0.1rem;
+    color: $color_fg !important;
+    border-style: solid;
+    border-color: $color_border;
+    border-width: 1px;
+}.tag:hover{
+    text-decoration: underline;
 }
